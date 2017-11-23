@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="comtainer"></div>
+	<script type="text/javascript" src="./common/react.js"></script>
+	<script type="text/javascript" src="./common/react-dom.js"></script>
+	<script src="https://cdn.bootcss.com/babel-core/5.8.31/browser.js"></script>
+	<script type="text/babel">
+		var TextComponent = React.createClass({
+			getInitialState:function () {
+				return {opacity:1};
+			} ,
+      componentDidMount:function () {
+				var _this = this;
+				setInterval(function () {
+
+					var op = _this.state.opacity;
+					op = op >=.1 ? op-.05 : 1 ;
+
+					_this.setState({
+						opacity : op
+					});
+				}.bind(this), 100)
+      },
+			render:function(){
+				return <h1 style={{opacity: this.state.opacity}}> hello world</h1>;
+			}
+		});
+		ReactDOM.render(
+			<TextComponent/>,document.getElementById('comtainer')
+		)
+	</script>
+</body>
+</html>

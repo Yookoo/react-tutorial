@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+  <style media="screen">
+    .container{
+      width: 600px;
+      height: 200px;
+    }
+    .box{
+      width: 100%;
+      height: 100%;
+      font-size: 128px;
+      text-align: center;
+      margin: auto;
+      color: #FFF;
+    }
+  </style>
+</head>
+<body>
+	<div id="container" class="container"></div>
+	<script type="text/javascript" src="./common/react.js"></script>
+	<script type="text/javascript" src="./common/react-dom.js"></script>
+	<script src="./common/browser.js"></script>
+	<script type="text/babel">
+		var TextComponent = React.createClass({
+			getInitialState:function () {
+				return {color:'red'};
+			} ,
+      componentDidMount:function () {
+				var _this = this;
+				setInterval(function () {
+
+					var bg = _this.state.color;
+					bg = bg == 'red' ? 'black' : 'red' ;
+
+					_this.setState({
+						color : bg
+					});
+				}.bind(this), 1000)
+      },
+			render:function(){
+				return (<h1 className='box' style = {{backgroundColor: this.state.color}}>王花花</h1>);
+			}
+		});
+		ReactDOM.render(
+			<TextComponent/>,document.getElementById('container')
+		)
+	</script>
+</body>
+</html>

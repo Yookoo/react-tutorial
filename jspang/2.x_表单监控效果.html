@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="comtainer"></div>
+	<script type="text/javascript" src="./common/react.js"></script>
+	<script type="text/javascript" src="./common/react-dom.js"></script>
+	<script src="https://cdn.bootcss.com/babel-core/5.8.31/browser.js"></script>
+	<script type="text/babel">
+		var TextComponent = React.createClass({
+			getInitialState:function () {
+				return {name:'',sex:'boy',hobby:'',home:'mars'};
+			},
+			submitHandler:function (e) {
+				e.preventDefault();
+				alert(this.state.name + '取向是'+ this.state.sex +'喜欢'+ this.state.hobby +'家乡是'+ this.state.home)
+			},
+			changeHandler:function (e) {
+				var newState = e.target.value;
+				console.log(newState);
+			},
+			render:function(){
+				return (<form>
+					<label htmlFor='name'>请输入你的大名:</label>
+					<input type='text' id='name' onChange={this.changeHandler}/><br/>
+					<label>请选择你的取向:</label>
+					<input name='sex' type='radio' value='boy' id='boy' onChange={this.changeHandler}/><label htmlFor='boy'>正太</label>
+					<input name='sex' type='radio' value='girl' id='girl'onChange={this.changeHandler}/><label htmlFor='girl'>萝莉</label><br/>
+					<label>请勾选你的爱好:</label>
+					<input name='hobby' type='checkbox' value='sports' id='sports' onChange={this.changeHandler}/><label htmlFor='sports'>运动</label>
+					<input name='hobby' type='checkbox' value='game'   id='game' onChange={this.changeHandler}/>  <label htmlFor='game'>游戏</label>
+					<input name='hobby' type='checkbox' value='study'  id='study' onChange={this.changeHandler}/> <label htmlFor='study'>学习</label><br/>
+					<label>请选择你的家乡:</label>
+					<select name='home' onChange={this.changeHandler}>
+						<option value='mars'>火星</option>
+						<option value='m78'>M78星云</option>
+						<option value='earth'>地球</option>
+					</select>
+					<input type='button' value='提交' onSubmit={this.submitHandler}/>
+				</form>	);
+			}
+		});
+		ReactDOM.render(
+			<TextComponent/>,document.getElementById('comtainer')
+		)
+	</script>
+</body>
+</html>
