@@ -1,0 +1,15 @@
+{
+  "name": "1.x",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack":"./node_modules/.bin/webpack --config webpack.config.js --progress --display-modules --colors --display-reason"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  }
+}
