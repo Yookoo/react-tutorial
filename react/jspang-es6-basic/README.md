@@ -313,3 +313,82 @@ var add6 = (a,b=1)=>{
 }
 console.log(add6(4));
 ```
+
+## ES6中的函数和数组补漏
+
+### 对象的函数解构
+```javascript
+let json ={
+  a : 'jspang',
+  b : '技术胖'
+}
+
+function fun1(a,b ='jspang'){
+  console.log(a,b);
+}
+fun1(json);
+// {a: "jspang", b: "技术胖"} "jspang"
+```
+### 数组的函数解构
+```javascript
+let arr = ['jspang', '技术胖','ES6'];
+
+function fun2(a,b,c){
+  console.log(a,b,c);
+}
+fun2(...arr);
+// jspang 技术胖 ES6
+```
+### in的用法
+  - 对象
+```javascript
+console.log('a' in json); //true
+```
+  - 数组
+```javascript
+let arr01 =[,,,,,,];
+console.log(arr01.length); //6
+console.log(0 in arr01); //false
+console.log(0 in arr);  //true
+```
+
+### 数组的遍历方法
+  - forEach
+  - filter
+  - some
+  - map
+```javascript
+// forEach 传值时val在前index在后
+arr.forEach((val,index)=>console.log(index,val));
+//0 "jspang"
+//1 "技术胖"
+//2 "ES6"
+```
+```javascript
+arr.filter(x=>console.log(x));
+//jspang
+//技术胖
+//ES6
+```
+```javascript
+arr.some(x=>console.log(x));
+//jspang
+//技术胖
+//ES6
+```
+```javascript
+console.log(arr.map(x=>'web'));
+//(3) ["web", "web", "web"]
+```
+
+### 数组转换字符串
+  - join()
+  - toString()
+```javascript
+console.log(arr.join('|'));
+//jspang|技术胖|ES6
+```
+```javascript
+console.log(arr.toString());
+//jspang,技术胖,ES6
+```
