@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>react-tutorial</title>
+	<!--browser.js 需要引用6.0.0 以下版本-->
+	<script src="https://cdn.bootcss.com/babel-core/5.8.38/browser.js"></script>
+	<script src="https://cdn.bootcss.com/react/16.0.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<style type="text/css">
+		.box {
+			width: 200px;
+			height: 200px;
+			line-height: 200px;
+			background: #ccc;
+			position: absolute;
+			text-align: center;
+			vertical-align: middle;
+		}
+	</style>
+	<script type="text/babel">
+		//组件的声明和java类似
+		class Comp extends React.Component {
+
+			constructor(...args){
+				super(...args);	
+			}
+			render() {
+				return (<div className="box" ref="box">
+					拽我
+				</div>
+				);
+
+			}
+			//TODO
+			componentDidMount(){
+
+				var box = $(this.refs['box']);
+
+				box.mousedown(function(ev){
+
+					console.log(ev.pageX);
+					var disX = ev.pageX - box.css("left");
+					var disY = ev.pageY - box.css("top");
+
+					var _this =this;
+					$(document).mousemove(function(ev){
+						var x = ev.pageX - disX;
+						var y = ev.pageY - disY;
+						box.css({
+						"left": x + 'px',
+						"top": y + 'px'});
+					});
+
+				$(document).mouseup(function(){
+
+					$(document).unbind("mouseup");
+					$(document).unbind("mousemove");
+				});
+
+				});
+				
+			}
+		}
+		$(function(){
+
+			var oDiv = $('#react')[0];
+			
+			ReactDOM.render(
+				<Comp />,
+				oDiv
+			);
+
+		});
+	</script>
+</head>
+<body>
+
+	<div id="react"></div>	
+
+</body>
+</html>

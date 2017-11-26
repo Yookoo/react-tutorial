@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>react-tutorial</title>
+	<!--browser.js 需要引用6.0.0 以下版本-->
+	<script src="https://cdn.bootcss.com/babel-core/5.8.38/browser.js"></script>
+	<script src="https://cdn.bootcss.com/react/16.0.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<script type="text/babel">
+		//组件的声明和java类似
+		class Comp extends React.Component {
+			//每一个组件里都必须有一个render方法，用于初始化组件
+			render() {
+				return (
+				<h1> 我的名字叫{this.props.name},今年{this.props.age}岁</h1>
+				);
+			}
+		}
+
+
+		$(function(){
+
+			var oDiv = $('#react')[0];
+			
+			ReactDOM.render(
+				//设置组件的属性
+				<Comp name = "王花花" age="18"/>,
+				oDiv
+			);
+
+		});
+
+
+	</script>
+</head>
+<body>
+
+	<div id="react"></div>	
+
+</body>
+</html>

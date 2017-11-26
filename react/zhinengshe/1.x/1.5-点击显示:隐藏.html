@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>react-tutorial</title>
+	<!--browser.js 需要引用6.0.0 以下版本-->
+	<script src="https://cdn.bootcss.com/babel-core/5.8.38/browser.js"></script>
+	<script src="https://cdn.bootcss.com/react/16.0.0/umd/react.development.js"></script>
+	<script src="https://cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<script type="text/babel">
+		//组件的声明和java类似
+		class Comp extends React.Component {
+			//构造函数
+			constructor(...args){
+				super(...args);
+				//声明状态
+				this.state = {display : 'block'};
+			}
+			
+			fn(){
+			/*
+
+				if(this.state.display == 'block'){
+					this.setState({
+						display: 'none'
+					});
+				}
+				if(this.state.display == 'none'){
+					this.setState({
+						display: 'block'
+					});
+				}
+			*/
+
+			this.setState({
+					//三目运算符优化写法
+					display: this.state.display == 'block' ? 'none' :'block'
+				});	
+
+			}
+
+			//每一个组件里都必须有一个render方法，用于初始化组件
+			render() {
+				return (<div>
+					
+					<input type="button" onClick={this.fn.bind(this)} value="显示/隐藏" />
+					<h1 id="box" style={{display: this.state.display}}>我是王花花</h1>
+				</div>
+				);
+			}
+		}
+
+
+		$(function(){
+
+			var oDiv = $('#react')[0];
+			
+			ReactDOM.render(
+				<Comp />,
+				oDiv
+			);
+
+		});
+
+
+	</script>
+</head>
+<body>
+
+	<div id="react"></div>	
+
+</body>
+</html>
