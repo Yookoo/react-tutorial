@@ -189,3 +189,127 @@ console.log(Number.MIN_SAFE_INTEGER); //-9007199254740991
 console.log(Number.MAX_VALUE);  //1.7976931348623157e+308
 console.log(Number.MIN_VALUE);  //5e-324
 ```
+
+## ES6的新数组知识
+### JSON->数组格式转换
+  - 用法:Array.from(XX)
+```javascript
+let json = {
+  '0': 'jspang',
+  '1': '技术胖',
+  '3': '大胖逼逼叨',
+  'length':5
+}
+let arr01 = Array.from(json);
+console.log(arr01);
+```
+## 文本/变量-> 数组
+  - 用法:Array.of(XX)
+```javascript
+let arr02 = Array.of(3,4,5,6);
+console.log(arr02);
+let arr03 = Array.of('json','hello','react');
+console.log(arr03);
+```
+### 数组的查询(find()实例方法)
+- value:当前要查找的值
+- index:当前要查找的数组索引
+- arr:当前被查找的数组
+```javascript
+let arr04 = [1,2,3,4,5,6,7,8,9,0];
+console.log(arr04.find(function (value,index,arr04) {
+  return value>5; //6
+  //return index>7; //9
+}));
+```
+### 数组填充(fill()实例方法)
+- str:填充的字符串
+- start : 起始索引
+- end：结束索引
+```javascript
+console.log(arr04.fill('jspang',2,5));
+//(10) [1, 2, "jspang", "jspang", "jspang", 6, 7, 8, 9, 0]
+```
+### 数组的遍历
+  - for...of循环
+```javascript
+for (let i of arr04) {
+  console.log(i);
+}
+```
+  - for...of输出索引
+```javascript
+for (let i of arr04.keys()) {
+  console.log(i);
+}
+```
+  - for...of同时输出索引和值
+```javascript
+for (let [i,val] of arr04.entries()) {
+  console.log(i+':'+ val);
+}
+```
+  - entries()实例方法
+```javascript
+let list = arr04.entries();
+console.log(list.next().value);
+console.log(list.next().value);
+console.log(list.next().value);
+console.log(list.next().value);
+//(2) [0, 1]
+//list.next().value是一个数组里面包括[index,value]
+```
+### 箭头函数和扩展
+- 传统方法
+```javascript
+function add1(a,b){
+  return a + b;
+}
+console.log(add1(2,3)); //3
+```
+  - 默认值
+```javascript
+function add2(a,b=1){
+  return a + b;
+}
+console.log(add2(1));
+```
+  - 抛出错误
+```javascript
+function add3(a, b = 1){
+  if (a == 0) {
+    throw new Error('This is Error')
+  }
+  return a + b;
+}
+console.log(add3(2));
+```
+  - 函数中的严谨模式
+```javascript
+function add4(a, b){
+  'use strict'
+  if (a == 0) {
+    throw new Error('This is Error')
+  }
+  return a + b;
+}
+console.log(add4(2,3));
+```
+  - 获得需要传递的参数个数
+```javascript
+console.log(add4.length);
+```
+  - 箭头函数01
+```javascript
+var add5 = (a,b=1)=>a+b;
+console.log(add5(3));
+```
+  - 箭头函数02
+  注意函数中有多个语句是需要加{}和return
+```javascript
+var add6 = (a,b=1)=>{
+  console.log('jspang');
+  return a+b;
+}
+console.log(add6(4));
+```
