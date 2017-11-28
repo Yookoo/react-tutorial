@@ -515,3 +515,140 @@ console.log(person2);
 // {name: "jspang", skill: "web", Symbol(): 18}
 ```
  *我们看到person2对象的age的属性名被隐藏了，但是它的值仍然可以被修改。*
+
+## set和weakSet 数据结构
+
+### Set 的声明
+```javascript
+ let set01 = new Set(['jdl','sjfl','阿凡达']);
+ console.log(set01);
+ //Set(3) {"jdl", "sjfl", "阿凡达"}
+```
+
+  Set和Array虽然很像,但是有一些略微的区别
+
+    1. Set中没有重复值
+    2. Set中的元素是无序的
+
+### Set的增删改查
+
+    在Array中 我们使用push来添加一个元素,在Set中我们使用add
+  - 增加
+```javascript
+ set01.add('zxc');
+ console.log(set01);
+```
+  - 删除
+```javascript
+ set01.delete('jdl');
+ console.log(set01);
+```
+  - 查找
+
+      因为Set是无序的所以我们不能使用set[1],这样来获取它的元素，而是直接使用它的值
+```javascript
+ console.log(set01.has('sjfl')); //true
+```
+  - 清空
+```javascript
+ set01.clear();
+ console.log(set01); //Set(0) {}
+```
+  *Set的值是无法修改的，如果想修改只能先把不需要的删除，再添加需要的*
+
+### Set 循环
+ - for ... of (同array)
+```javascript
+ let set02 = new Set(['jspang','技术胖','web','jspang']);
+ for (let item of set02){
+     console.log(item);
+ }
+```
+
+  - forEach
+
+      箭头函数
+```javascript
+ set02.forEach((value)=>console.log(value));
+ ```
+      传统方法
+```javascript
+ set02.forEach(function(val){
+   console.log(val);
+ });
+```
+### Size属性
+
+    Set的Size属性接Array的length属性类似,用来获取Set中的元素数量
+```javascript
+ console.log(set02.size); //4
+```
+### WeakSet
+
+  set和weakSet的区别就是weakset中的元素都必须是对象
+
+### WeakSet的声明
+
+```javascript
+ let weakset=new WeakSet();
+ let obj={a:'jspang',b:'技术胖'}
+ weakset.add(obj);
+ console.log(weakset);
+```
+ *这里要注意的是，WeakSet在声明时不能进行初始化,必须使用add方法添加元素*
+
+## map 数据结构
+
+### Json和map格式的对比
+
+  - map的效率和灵活性更好
+### map的声明
+```javascript
+ let json = {
+     name:'jspang',
+     skill:'web'
+ }
+ console.log(json);
+ //{name: "jspang", skill: "web"}
+ var map01=new Map();
+ map01.set(json,'iam');
+ console.log(map01);
+ //Map(1) {{…} => "iam"}
+ var map02=new Map();
+ map02.set('iam',json);
+ console.log(map02);
+ //Map(1) {"iam" => {…}}
+```
+### map的增删查
+
+  - 增加set
+```javascript
+ map01.set('hobby','coding');
+ console.log(map01);
+ //Map(2) {{…} => "iam", "hobby" => "coding"}
+```
+  - 获取get
+```javascript
+ console.log(map01.get(json));
+ //iam
+```
+  - 删除delete
+```javascript
+ map01.delete(json);
+ console.log(map01);
+ //Map(1) {"hobby" => "coding"}
+```
+  - 查找 has
+```javascript
+ console.log(map01.has('hobby'));
+ //true
+```
+
+  - 清空clear
+```javascript
+ map01.clear();
+```
+### 数量size
+```javascript
+ console.log(map01.size); // 0
+```

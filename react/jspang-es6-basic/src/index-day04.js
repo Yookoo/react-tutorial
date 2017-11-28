@@ -1,11 +1,9 @@
-'use strict';
-
 //day04
 //set和weakSet 数据结构
 
 //Set 的声明
 
-var set01 = new Set(['jdl', 'sjfl', '阿凡达']);
+let set01 = new Set(['jdl','sjfl','阿凡达']);
 console.log(set01);
 //Set(3) {"jdl", "sjfl", "阿凡达"}
 //Set和Array虽然很像,但是有一些略微的区别
@@ -33,41 +31,18 @@ console.log(set01); //Set(0) {}
 //Set 循环
 // for ... of (同array)
 //
-var set02 = new Set(['jspang', '技术胖', 'web', 'jspang']);
-var _iteratorNormalCompletion = true;
-var _didIteratorError = false;
-var _iteratorError = undefined;
-
-try {
-    for (var _iterator = set02[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var item = _step.value;
-
-        console.log(item);
-    }
-
-    //forEach
-    //箭头函数
-} catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-} finally {
-    try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-        }
-    } finally {
-        if (_didIteratorError) {
-            throw _iteratorError;
-        }
-    }
+let set02 = new Set(['jspang','技术胖','web','jspang']);
+for (let item of set02){
+    console.log(item);
 }
 
-set02.forEach(function (value) {
-    return console.log(value);
-});
+
+//forEach
+//箭头函数
+set02.forEach((value)=>console.log(value));
 //传统方法
-set02.forEach(function (val) {
-    console.log(val);
+set02.forEach(function(val){
+  console.log(val);
 });
 
 //Size属性
@@ -78,8 +53,8 @@ console.log(set02.size); //4
 //WeakSet
 //set和weakSet的区别就是weakset中的元素都必须是对象
 //WeakSet的声明
-var weakset = new WeakSet();
-var obj = { a: 'jspang', b: '技术胖' };
+let weakset=new WeakSet();
+let obj={a:'jspang',b:'技术胖'}
 weakset.add(obj);
 console.log(weakset);
 //这里要注意的是，WeakSet在声明时不能进行初始化,必须使用add方法添加元素
@@ -89,25 +64,25 @@ console.log(weakset);
 //Json和map格式的对比
 //map的效率和灵活性更好
 //map的声明
-var json = {
-    name: 'jspang',
-    skill: 'web'
-};
+let json = {
+    name:'jspang',
+    skill:'web'
+}
 console.log(json);
 //{name: "jspang", skill: "web"}
-var map01 = new Map();
-map01.set(json, 'iam');
+var map01=new Map();
+map01.set(json,'iam');
 console.log(map01);
 //Map(1) {{…} => "iam"}
-var map02 = new Map();
-map02.set('iam', json);
+var map02=new Map();
+map02.set('iam',json);
 console.log(map02);
 //Map(1) {"iam" => {…}}
 
 //map的增删查
 
 //增加set
-map01.set('hobby', 'coding');
+map01.set('hobby','coding');
 console.log(map01);
 //Map(2) {{…} => "iam", "hobby" => "coding"}
 
@@ -132,14 +107,14 @@ console.log(map01.size); // 0
 // 用Proxy进行预处理
 // 代理模式
 // 声明对象
-var target = {
+const target = {
     name: 'Billy Bob',
     age: 15
 };
-var handler = {
-    get: function get(target, key, proxy) {
-        var today = new Date();
-        console.log('GET request made for ' + key + ' at ' + today);
+const handler = {
+    get(target, key, proxy) {
+        const today = new Date();
+        console.log(`GET request made for ${key} at ${today}`);
         return Reflect.get(target, key, proxy);
     }
 };
@@ -147,7 +122,9 @@ var handler = {
 //声明Proxy
 //var p = new Proxy(target, handler);
 //这里是两个花括号，第一个花括号填被代理的对象，后边的花括号填代理后要做的事。
-//这里我们比如要获取add的参数先给它加10，在调用add方法，就相当于给参数加了20
 
-var proxy = new Proxy(target, handler);
+const proxy = new Proxy(target, handler);
+// 添加代理后我们调用proxy.name就会打印 GET request made for name at Tue Nov 28 2017 23:24:10 GMT+0800 (CST)
 proxy.name;
+//GET request made for name at Tue Nov 28 2017 23:24:10 GMT+0800 (CST)
+//参考 http://pinggod.com/2016/%E5%AE%9E%E4%BE%8B%E8%A7%A3%E6%9E%90-ES6-Proxy-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/
