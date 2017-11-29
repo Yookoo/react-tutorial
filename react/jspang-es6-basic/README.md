@@ -518,7 +518,7 @@ console.log(person2);
 ```
  *我们看到person2对象的age的属性名被隐藏了，但是它的值仍然可以被修改。*
 ***
-#Day04
+# Day04
 ## set和weakSet 数据结构
 
 ### Set 的声明
@@ -726,12 +726,12 @@ console.log(pro());
 // I am JSPang
 ```
 ***
-#Day05
+# Day05
 
 ## promise对象的使用
 
  *通过promise解决ES5函数的多层嵌套形成回调地狱的问题*
- 
+
     比如：洗菜做饭->坐下来吃饭->收拾桌子洗碗。
 ```javascript
 let state=1;
