@@ -652,3 +652,183 @@ console.log(person2);
 ```javascript
  console.log(map01.size); // 0
 ```
+## 用Proxy进行预处理
+
+### 声明对象
+```javascript
+const target = {
+    name: 'Billy Bob',
+    age: 15
+};
+const handler = {
+    //get方法
+    get(target, key, proxy) {
+        const today = new Date();
+        console.log(`GET request made for ${key} at ${today}`);
+        //return Reflect.get(target, key, proxy);
+        return target[key];
+    },
+    //set方法
+    set(target, key, value, receiver) {
+        const today = new Date();
+        console.log(`SET request made for ${key} at ${today}`);
+        //return Reflect.get(target, key, value, receiver);
+        return target[key] = value;
+    }
+};
+```
+### get属性
+
+get属性是在你得到某对象属性值时预处理的方法，他接受三个参数
+
+  - target：得到的目标值
+  - key：目标的key值，相当于对象的属性
+  - proxy：
+
+### set属性
+
+set属性是值你要改变Proxy属性值时，进行的预先处理。它接收四个参数。
+  - target:目标值。
+  - key：目标的Key值。
+  - value：要改变的值。
+  - receiver：改变前的原始值
+### 声明Proxy
+```javascript
+const proxy = new Proxy(target, handler);
+```
+    这里是两个花括号，第一个花括号填被代理的对象，后边的花括号填代理后要做的事。
+    添加代理后我们调用proxy.name就会打印 GET request made for name at Tue Nov 28 2017 23:24:10 GMT+0800 (CST)
+```javascript
+console.log(proxy.name);
+proxy.name = '技术胖'
+console.log(proxy.name);
+//GET request made for name at Tue Nov 28 2017 23:24:10 GMT+0800 (CST)
+```
+> 参考 http://pinggod.com/2016/%E5%AE%9E%E4%BE%8B%E8%A7%A3%E6%9E%90-ES6-Proxy-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/
+
+### apply 方法的使用
+```javascript
+let target02 = function () {
+    return 'I am JSPang';
+};
+var handler02 = {
+    apply(target, ctx, args) {
+        console.log('do apply');
+        return Reflect.apply(...arguments);
+    }
+}
+var pro = new Proxy(target02, handler02);
+console.log(pro());
+// do apply
+// I am JSPang
+```
+
+
+## promise对象的使用
+
+ *通过promise解决ES5函数的多层嵌套形成回调地狱的问题*
+    比如：洗菜做饭->坐下来吃饭->收拾桌子洗碗。
+```javascript
+let state=1;
+
+function step1(resolve,reject){
+    console.log('1.开始-洗菜做饭');
+    if(state==1){
+        resolve('洗菜做饭--完成');
+    }else{
+        reject('洗菜做饭--出错');
+    }
+}
+function step2(resolve,reject){
+    console.log('2.开始-坐下来吃饭');
+    //state=0;
+    if(state==1){
+        resolve('坐下来吃饭--完成');
+    }else{
+        reject('坐下来吃饭--出错');
+    }
+}
+
+function step3(resolve,reject){
+    console.log('3.开始-收拾桌子洗完');
+     if(state==1){
+        resolve('收拾桌子洗完--完成');
+    }else{
+        reject('收拾桌子洗完--出错');
+    }
+}
+//使用promise
+new Promise(step1).then(function (val) {
+  console.log(val);
+  return new Promise(step2);
+}).then(function (val) {
+  console.log(val);
+  return new Promise(step3);
+}).then(function (val) {
+  console.log(val);
+})
+```
+
+## class类的使用
+
+### class类的声明
+```javascript
+class Person {
+
+  constructor(name,age){
+    this.name=name;
+    this.age=age;
+  }
+
+  show(){
+    console.log('我是'+this.name+',今年'+this.age+'岁了。');
+  }
+}
+
+let xiaoming = new Person('小明',18);
+xiaoming.show();
+```
+### class类的继承extends
+```javascript
+class Coder extends Person {
+  constructor(name,age,skill){
+    super(name,age);
+    this.skill= skill;
+  }
+
+  show(){
+    console.log('我是'+this.name+',今年'+this.age+'岁了。我会'+this.skill+'。');
+  }
+}
+let xiaobai = new Coder('小白',20,'码代码');
+xiaobai.show();
+```
+
+## 模块化操作
+
+### export :负责进行模块化，也是模块的输出。
+
+```javascript
+export var ca = 'jspang' ;
+var v = 'hello';
+//别名
+export  {v as hello};
+// 输出函数
+export function add(a,b){return a+b;};
+//默认输出
+var a={name :'jspang', cname : '技术胖'};
+export default a;
+```
+
+### import : 负责把模块引，也是模块的引入操作。
+
+```javascript
+import {ca,add,hello} from './export.js';
+//引入默认输出
+import jsp from './export.js';
+console.log(ca);
+console.log(hello);
+console.log(add(1,2));
+console.log(jsp);
+```
+*注意：使用 `babel-node ./src/index-day05-2.js` 执行js*

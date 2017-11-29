@@ -112,10 +112,19 @@ const target = {
     age: 15
 };
 const handler = {
+    //get方法
     get(target, key, proxy) {
         const today = new Date();
         console.log(`GET request made for ${key} at ${today}`);
-        return Reflect.get(target, key, proxy);
+        //return Reflect.get(target, key, proxy);
+        return target[key];
+    },
+    //set方法
+    set(target, key, value, receiver) {
+        const today = new Date();
+        console.log(`SET request made for ${key} at ${today}`);
+        //return Reflect.get(target, key, value, receiver);
+        return target[key] = value;
     }
 };
 
@@ -125,6 +134,23 @@ const handler = {
 
 const proxy = new Proxy(target, handler);
 // 添加代理后我们调用proxy.name就会打印 GET request made for name at Tue Nov 28 2017 23:24:10 GMT+0800 (CST)
-proxy.name;
+console.log(proxy.name);
+proxy.name = '技术胖'
+console.log(proxy.name);
 //GET request made for name at Tue Nov 28 2017 23:24:10 GMT+0800 (CST)
 //参考 http://pinggod.com/2016/%E5%AE%9E%E4%BE%8B%E8%A7%A3%E6%9E%90-ES6-Proxy-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/
+
+//apply 方法的使用
+
+let target02 = function () {
+    return 'I am JSPang';
+};
+var handler02 = {
+    apply(target, ctx, args) {
+        console.log('do apply');
+        return Reflect.apply(...arguments);
+    }
+}
+
+var pro = new Proxy(target02, handler02);
+console.log(pro());
