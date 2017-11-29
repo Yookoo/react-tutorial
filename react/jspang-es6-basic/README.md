@@ -130,7 +130,7 @@ console.log('jspang|'.repeat(3));
 # Day02
 
 ## ES6的数字操作
-### 二进制和八进制*
+### 二进制和八进制#
 - 二进制声明
 ```javascript
 let binary = 0b010101;
@@ -165,6 +165,7 @@ console.log(Number.isInteger(binary));
 - 转换为整数(Number.parseInt(string, radix))
 
     参数:string解析值。如果字符串参数不是字符串，则将其转换为字符串(使用ToString抽象操作)。
+
     参数:radix基数.表示2到36之间的整数。指定10用于人类常用的十进制数字系统。通常默认值为10。
 ```javascript
 console.log(Number.parseInt("010101",2));
@@ -392,7 +393,8 @@ console.log(arr.join('|'));
 console.log(arr.toString());
 //jspang,技术胖,ES6
 ```
-
+***
+# Day03
 ## ES6的对象
 
 ### 对象的赋值
@@ -515,7 +517,8 @@ console.log(person2);
 // {name: "jspang", skill: "web", Symbol(): 18}
 ```
  *我们看到person2对象的age的属性名被隐藏了，但是它的值仍然可以被修改。*
-
+***
+#Day04
 ## set和weakSet 数据结构
 
 ### Set 的声明
@@ -722,11 +725,13 @@ console.log(pro());
 // do apply
 // I am JSPang
 ```
-
+***
+#Day05
 
 ## promise对象的使用
 
  *通过promise解决ES5函数的多层嵌套形成回调地狱的问题*
+ 
     比如：洗菜做饭->坐下来吃饭->收拾桌子洗碗。
 ```javascript
 let state=1;
