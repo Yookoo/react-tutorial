@@ -1,7 +1,7 @@
 {
   "private": true,
   "entry": {
-    "index": "./index.js"
+    "index": "./login.js"
   },
   "dependencies": {
     "antd": "^2.1.0",
